@@ -16,6 +16,7 @@ $(KERNEL):
 	(cd $@; git apply ../patch-linux-nvme.diff)
 	(cd $@; git apply ../patch-linux-bcm5974.diff)
 	(cd $@; git apply ../patch-linux-hid.diff)
+	(cd $@; git apply ../patch-linux-brcmfmac.diff)
 
 bce:
 	@echo "-- Fetching BCE Module"
