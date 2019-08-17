@@ -12,11 +12,14 @@ $(KERNEL):
 	git clone --depth=1 -b v$(VERSION) git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux $(KERNEL)
 	(cd $(KERNEL); git checkout -b $(VERSION))
 	cp setup-linux-mba.config $(KERNEL)/.config
+
+patch:
 	@echo "-- Patching Linux Kernel $(KERNEL)"
-	(cd $@; git apply ../patch-linux-nvme.diff)
-	(cd $@; git apply ../patch-linux-bcm5974.diff)
-	(cd $@; git apply ../patch-linux-hid.diff)
-	(cd $@; git apply ../patch-linux-brcmfmac.diff)
+	(cd $(KERNEL); git checkout -- drivers/*.c drivers/*.h)
+	(cd $(KERNEL); git apply ../patch-linux-nvme.diff)
+	(cd $(KERNEL); git apply ../patch-linux-bcm5974.diff)
+	(cd $(KERNEL); git apply ../patch-linux-hid.diff)
+	(cd $(KERNEL); git apply ../patch-linux-brcmfmac.diff)
 
 bce:
 	@echo "-- Fetching BCE Module"
@@ -26,7 +29,7 @@ bce:
 config: $(KERNEL)
 	(cd $(KERNEL); make menuconfig)
 
-build: $(KERNEL) bce
+build: $(KERNEL) patch bce
 	@echo "-- Compiling Linux Kernel"
 	(cd $(KERNEL); make)
 	@echo "-- Compiling BCE Module"
