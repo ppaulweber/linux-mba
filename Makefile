@@ -12,6 +12,8 @@ $(KERNEL):
 	git clone --depth=1 -b v$(VERSION) git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux $(KERNEL)
 	(cd $(KERNEL); git checkout -b $(VERSION))
 	cp setup-linux-mba.config $(KERNEL)/.config
+	@echo "-- Patching Linux Kernel $(KERNEL)"
+	(cd $@; git apply ../patch-linux-nvme.diff)
 
 bce:
 	@echo "-- Fetching BCE Module"
