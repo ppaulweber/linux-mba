@@ -14,6 +14,7 @@ $(KERNEL):
 	cp setup-linux-mba.config $(KERNEL)/.config
 	@echo "-- Patching Linux Kernel $(KERNEL)"
 	(cd $@; git apply ../patch-linux-nvme.diff)
+	(cd $@; git apply ../patch-linux-bcm5974.diff)
 
 bce:
 	@echo "-- Fetching BCE Module"
