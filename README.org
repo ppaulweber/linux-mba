@@ -3,4 +3,7 @@
 * linux-mba: Linux Kernel for MacBook{Air8.1,Pro15.x} with Arch Linux setup
 
 To fetch and compile the kernel sources and additional =BCE= module just call =make=.
+
 To install the artifacts call =sudo make install=.
+
+The Linux kernel image and initramfs file are located after the install at the path =/boot/linux-mba=.
