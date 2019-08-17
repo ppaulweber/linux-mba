@@ -1,0 +1,9 @@
+# mkinitcpio preset file for the 'linux-mba' configuration
+
+ALL_config="/etc/mkinitcpio.conf"
+ALL_kver="/boot/linux-mba/vmlinuz-linux"
+
+PRESETS=('default')
+
+default_image="/boot/linux-mba/initramfs-linux.img"
+#default_options=""
