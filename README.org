@@ -1,9 +1,10 @@
 #+options: toc:nil
 
-* linux-mba: Linux Kernel for MacBook{Air8.x,Pro15.y} with Arch Linux setup
+* linux-mba: Linux Kernel for MacBook{Air8.x,Pro15.y} with =systemd= setup (Arch, Debian, Ubuntu etc.)
 
-To fetch and compile the kernel sources and additional =BCE= module just call =make=.
+To fetch and compile the Linux kernel sources and additional =BCE= module just call =make=.
 
-To install the artifacts call =sudo make install=.
+To install the artifacts just call =sudo make install=.
 
-The Linux kernel image and initramfs file are located after the install at the path =/boot/linux-mba=.
+The Linux kernel image =vmlinuz-linux= and =initramfs-linux.img= file are located after the install 
+at the path =/boot/linux-mba= and all the compiled Linux kernel modules at the path =/lib/modules/5.1.5-mba+/=.
