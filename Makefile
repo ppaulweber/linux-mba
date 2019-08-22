@@ -24,7 +24,7 @@ patch:
 bce:
 	@echo "-- Fetching BCE Module"
 	git clone https://github.com/MCMrARM/mbp2018-bridge-drv $@
-	(cd $@; git checkout 398566a6bab692fba03634de9b46e27bdb4e4356)
+	(cd $@; git checkout 65a09949c2d7343a073d92e4d4c24c5effa420c5)
 
 config: $(KERNEL)
 	(cd $(KERNEL); make menuconfig)
