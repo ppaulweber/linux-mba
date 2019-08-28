@@ -1,0 +1,12 @@
+[Unit]
+Description=WLAN (WiFi) driver reload service
+Before=iwd.service
+
+[Service]
+Type=simple
+ExecStartPre=/sbin/modprobe -r brcmfmac
+ExecStart=/sbin/modprobe brcmfmac
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
