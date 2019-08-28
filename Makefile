@@ -3,8 +3,9 @@
 VERSION=5.1.5
 PREFIX=linux
 POSTFIX=mba
-KERNEL=$(PREFIX)-$(VERSION)-$(POSTFIX)+
-MODULE=/lib/modules/$(VERSION)-$(POSTFIX)
+UNAME=$(VERSION)-$(POSTFIX)+
+KERNEL=$(PREFIX)-$(UNAME)
+MODULE=/lib/modules/$(UNAME)
 
 BCE_SOURCES=https://github.com/MCMrARM/mbp2018-bridge-drv
 BCE_VERSION=master
@@ -77,7 +78,7 @@ install-modules: $(MODULE)/kernel/extra
 	@echo "-- Installing applespi module"
 	cp -f linux-module-applespi/applespi.ko $(MODULE)/kernel/extra/
 	@echo "-- Updating Linux kernel module dependencies"
-	depmod -a
+	depmod -a $(UNAME)
 
 install-systemd:
 	@echo "-- Installing systemd configuration"
