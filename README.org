@@ -8,3 +8,6 @@ To install the artifacts just call =sudo make install=.
 
 The Linux kernel image =vmlinuz-linux= and =initramfs-linux.img= file are located after the install 
 at the path =/boot/linux-mba= and all the compiled Linux kernel modules at the path =/lib/modules/5.1.5-mba+/=.
+
+If you want to use the suggested =systemd= integration in this repository e.g. to automatically reload the needed 
+WLAN (WiFi) driver just update the =systemd= environment by calling =make systemd=.
