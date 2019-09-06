@@ -43,13 +43,13 @@ linux-module-bce:
 	git clone $(BCE_SOURCES) $@
 	(cd $@; git checkout $(BCE_VERSION))
 
-linux-module-applespi:
+linux-module-spi:
 	@echo "-- Fetching SPI Module"
 	git clone $(SPI_SOURCES) $@
 	(cd $@; git checkout $(SPI_VERSION))
 
 
-build: $(KERNEL) patch linux-module-bce linux-module-applespi
+build: $(KERNEL) patch linux-module-bce linux-module-spi
 	@echo "-- Compiling Linux Kernel"
 	(cd $(KERNEL); make)
 
@@ -57,7 +57,7 @@ build-module-bce: linux-module-bce
 	@echo "-- Compiling BCE Module"
 	make -C $(PWD)/$(KERNEL) M=$(PWD)/$^ modules
 
-build-module-applespi: linux-module-applespi
+build-module-spi: linux-module-spi
 	@echo "-- Compiling SPI Module"
 	make -C $(PWD)/$(KERNEL) M=$(PWD)/$^ modules
 
@@ -75,17 +75,17 @@ install-kernel: /boot/$(PREFIX)-$(POSTFIX) /etc/mkinitcpio.d/linux-mba.preset
 install-modules: $(MODULE)/kernel/extra
 	@echo "-- Installing bce module"
 	cp -f linux-module-bce/bce.ko $(MODULE)/kernel/extra/
-	@echo "-- Installing applespi module"
-	cp -f linux-module-applespi/apple-ibridge.ko $(MODULE)/kernel/extra/
-	cp -f linux-module-applespi/apple-ib-tb.ko   $(MODULE)/kernel/extra/
-	cp -f linux-module-applespi/apple-ib-als.ko  $(MODULE)/kernel/extra/
+	@echo "-- Installing spi modules"
+	cp -f linux-module-spi/apple-ibridge.ko $(MODULE)/kernel/extra/
+	cp -f linux-module-spi/apple-ib-tb.ko   $(MODULE)/kernel/extra/
+	cp -f linux-module-spi/apple-ib-als.ko  $(MODULE)/kernel/extra/
 	@echo "-- Updating Linux kernel module dependencies"
 	depmod -a $(UNAME)
 
 install-systemd:
 	@echo "-- Installing systemd configuration"
 	cp -f setup-etc-modules-load.d-bce.conf              /etc/modules-load.d/bce.conf
-	cp -f setup-etc-modules-load.d-applespi.conf         /etc/modules-load.d/applespi.conf
+	cp -f setup-etc-modules-load.d-spi.conf              /etc/modules-load.d/spi.conf
 	cp -f setup-usr-share-alsa-cards-apple_t2.conf       /usr/share/alsa/cards/AppleT2.conf
 	cp -f setup-usr-lib-systemd-system-brcmfmac.service  /usr/lib/systemd/system/brcmfmac.service
 
