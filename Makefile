@@ -84,10 +84,18 @@ install-modules: $(MODULE)/kernel/extra
 
 install-systemd:
 	@echo "-- Installing systemd configuration"
-	cp -f setup-etc-modules-load.d-bce.conf              /etc/modules-load.d/bce.conf
-	cp -f setup-etc-modules-load.d-spi.conf              /etc/modules-load.d/spi.conf
-	cp -f setup-usr-share-alsa-cards-apple_t2.conf       /usr/share/alsa/cards/AppleT2.conf
-	cp -f setup-usr-lib-systemd-system-brcmfmac.service  /usr/lib/systemd/system/brcmfmac.service
+	cp -f setup-etc-modules-load.d-bce.conf \
+		   /etc/modules-load.d/bce.conf
+	cp -f setup-etc-modules-load.d-spi.conf \
+		   /etc/modules-load.d/spi.conf
+	cp -f setup-usr-lib-systemd-system-brcmfmac.service \
+		   /usr/lib/systemd/system/brcmfmac.service
+	cp -f setup-usr-lib-udev-rules.d-91-pulseaudio-custom.rules \
+		   /usr/lib/udev/rules.d/91-pulseaudio-custom.rules
+	cp -f setup-usr-share-alsa-cards-AppleT2.conf \
+		   /usr/share/alsa/cards/AppleT2.conf
+	cp -f setup-usr-share-pulseaudio-alsa-mixer-profile-sets-apple-t2.conf \
+		   /usr/share/pulseaudio/alsa-mixer/profile-sets/apple-t2.conf
 
 systemd:
 	@echo "-- Updating systemd environment"
