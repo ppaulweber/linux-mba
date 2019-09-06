@@ -1,11 +1,12 @@
 [Unit]
 Description=WLAN (WiFi) driver reload service
-Before=iwd.service
+After=iwd.service
 
 [Service]
 Type=simple
 ExecStartPre=/sbin/modprobe -r brcmfmac
 ExecStart=/sbin/modprobe brcmfmac
+ExecStartPost=/usr/bin/systemctl restart iwd.service
 Restart=on-failure
 
 [Install]
