@@ -11,7 +11,7 @@ BCE_SOURCES=https://github.com/MCMrARM/mbp2018-bridge-drv
 BCE_VERSION=master
 
 SPI_SOURCES=https://github.com/roadrunner2/macbook12-spi-driver
-SPI_VERSION=master
+SPI_VERSION=mbp15
 
 default: build
 
@@ -55,11 +55,11 @@ build: $(KERNEL) patch linux-module-bce linux-module-applespi
 
 build-module-bce: linux-module-bce
 	@echo "-- Compiling BCE Module"
-	make -C $(PWD)/$(KERNEL) M=$(PWD)/$@ modules
+	make -C $(PWD)/$(KERNEL) M=$(PWD)/$^ modules
 
 build-module-applespi: linux-module-applespi
 	@echo "-- Compiling SPI Module"
-	make -C $(PWD)/$(KERNEL) M=$(PWD)/$@ modules
+	make -C $(PWD)/$(KERNEL) M=$(PWD)/$^ modules
 
 
 install: install-kernel install-modules install-systemd
@@ -76,7 +76,9 @@ install-modules: $(MODULE)/kernel/extra
 	@echo "-- Installing bce module"
 	cp -f linux-module-bce/bce.ko $(MODULE)/kernel/extra/
 	@echo "-- Installing applespi module"
-	cp -f linux-module-applespi/applespi.ko $(MODULE)/kernel/extra/
+	cp -f linux-module-applespi/apple-ibridge.ko $(MODULE)/kernel/extra/
+	cp -f linux-module-applespi/apple-ib-tb.ko   $(MODULE)/kernel/extra/
+	cp -f linux-module-applespi/apple-ib-als.ko  $(MODULE)/kernel/extra/
 	@echo "-- Updating Linux kernel module dependencies"
 	depmod -a $(UNAME)
 
